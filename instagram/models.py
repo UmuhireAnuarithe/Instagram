@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,5 +25,6 @@ class Image(models.Model):
     likes = models.IntegerField(default='none')
     comments = models.CharField(max_length =30)
     profile_photo = models.ForeignKey(Profile,null=True)
+    poster = models.ForeignKey(User,on_delete=models.CASCADE)
     def __str__(self):
         return self.title
