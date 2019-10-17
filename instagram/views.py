@@ -20,4 +20,4 @@ def search_user(request):
 
     else:
         message = "You haven't searched for any term"
-        return render(request, '/search.html',{"message":message})
+        return render(request, 'search.html',{"message":message})
