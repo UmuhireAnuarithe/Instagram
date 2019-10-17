@@ -6,7 +6,7 @@ from django.db import models
 # Create your models here.
 
 class Profile(models.Model):
-    # photo = 
+    photo = models.ImageField(upload_to = 'photos/')
     biography = models.CharField(max_length =30)
 
     def __str__(self):
@@ -18,7 +18,7 @@ class Profile(models.Model):
         return profiles
 
 class Image(models.Model):
-    # image = 
+    image = models.ImageField(upload_to = 'photos/')
     title = models.CharField(max_length =30)
     caption = models.CharField(max_length =30)
     likes = models.IntegerField(default='none')
