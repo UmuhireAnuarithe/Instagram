@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http  import HttpResponse
 from .models import Profile,Image
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def welcome(request):
     images = Image.objects.all()
     return render(request,'welcome.html',{'images':images})
@@ -21,3 +23,5 @@ def search_user(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
+        
