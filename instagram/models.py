@@ -8,8 +8,9 @@ from tinymce.models import HTMLField
 
 class Profile(models.Model):
     profile_photo = models.ImageField(upload_to = 'photos/',null=True)
+    poster = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     biography = models.CharField(max_length =30)
-
+    first_name = models.CharField(max_length=30, null=True)
     def __str__(self):
         return self.biography
 
