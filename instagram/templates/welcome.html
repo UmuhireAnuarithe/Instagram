@@ -3,33 +3,54 @@
 {% block content %}
 {{block.super}}
 
-<div class="container">
+<div class="container" style="border:3px solid gray">
+  {% for profile in profiles %}
 
-       
-        {% for image in images %}
-      
-        <div class="row">
-          
-          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <h2 class="text-center"> {{ image.title }} </h2>
-                <p>{% autoescape on %}
-                    {{image.caption| safe}}
-                    {% endautoescape %} </p>
-                <p>{{ image.comments}} </p>
-                <p>{{ image.photo_profile}} </p>
-              </div>
-      
-        
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <img src="{{image.image.url}}" class="img-responsive" alt="Image" height="300px" width="400px">
-              </div>
-          
-        </div>
-        {% empty %}
-        <div class="row">
-          <h2 class="text-center">There No News Items</h2>
-        </div>
-        {% endfor %}
-      
-      </div>
+  <div class="row">
+
+    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4" >
+    </div>
+
+
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <img src="{{ profile.profile_photo.url}}" class="img-responsive" alt="profile_photo" height="300px" width="400px">
+      <h2 class="text-center"> {{ profile.biography }} </h2>
+      <!-- <p>{{profile.poster}}</p> -->
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+    </div>
+  </div>
+  {% empty %}
+  <div class="row">
+    <h2 class="text-center">There No News Items</h2>
+  </div>
+  {% endfor %}
+
+  {% for image in images %}
+
+  <div class="row" style="border:3px solid gray">
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <h2 class="text-center"> {{ image.title }} </h2>
+      <p>{% autoescape on %}
+        {{image.caption| safe}}
+        {% endautoescape %} </p>
+      <p>{{ image.comments}} </p>
+      <p>{{ image.username}} </p>
+
+    </div>
+
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <img src="{{image.image.url}}" class="img-responsive" alt="Image" height="300px" width="400px">
+    </div>
+
+  </div>
+  {% empty %}
+  <div class="row">
+    <h2 class="text-center">There No News Items</h2>
+  </div>
+  {% endfor %}
+
+</div>
 {% endblock %}

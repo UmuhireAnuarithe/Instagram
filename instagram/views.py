@@ -9,7 +9,8 @@ from .forms import NewImageForm
 @login_required(login_url='/accounts/login/')
 def welcome(request):
     images = Image.objects.all()
-    return render(request,'welcome.html',{'images':images})
+    profiles= Profile.objects.all()
+    return render(request,'welcome.html',{'profiles':profiles,'images':images})
 
 
 def search_user(request):
@@ -38,4 +39,22 @@ def new_post(request):
 
     else:
         form = NewImageForm()
-    return render(request, 'new.html', {"form": form})    
+    return render(request, 'new.html', {"form": form})  
+
+
+
+@login_required(login_url='/accounts/login/')
+def edit_profile(request):
+    current_user=request.user
+    user_edit = Profile.objects.get(username__id=current_user.id)
+    if request.method =='POST':
+        form=ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            print('success')
+          
+        form=ProfileForm(instance=request.user.profile)
+        print('error')
+
+
+    return render(request,'edit_profile.html',locals())  
