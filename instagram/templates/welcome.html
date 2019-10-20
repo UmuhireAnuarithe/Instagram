@@ -4,7 +4,7 @@
 {{block.super}}
 
 <div class="container" style="border:3px solid gray">
-  {% for profile in profiles %}
+  <!-- {% for profile in profiles %}
 
   <div class="row">
 
@@ -15,8 +15,8 @@
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
       <img src="{{ profile.profile_photo.url}}" class="img-responsive" alt="profile_photo" height="300px" width="400px">
       <h2 class="text-center"> {{ profile.biography }} </h2>
-      <!-- <p>{{profile.poster}}</p> -->
-    </div>
+       <p>{{profile.poster}}</p> -->
+    <!-- </div>
     <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
     </div>
   </div>
@@ -24,32 +24,28 @@
   <div class="row">
     <h2 class="text-center">There No News Items</h2>
   </div>
-  {% endfor %}
+  {% endfor %} --> 
 
   {% for image in images %}
 
-  <div class="row" style="border:3px solid gray">
-
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <h2 class="text-center"> {{ image.title }} </h2>
-      <p>{% autoescape on %}
+  <div class="row" >
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Marck+Script&display=swap" rel="stylesheet">
+      <h2 class="text-center"> {{ image.name }} </h2>
+      <img src="{{image.image.url}}"   class="img-responsive "alt="Image" height="300px" width="300px">
+      <p style="font-family: 'Marck Script', cursive;font-size: 30px;">{% autoescape on %}
         {{image.caption| safe}}
         {% endautoescape %} </p>
-      <p>{{ image.comments}} </p>
-      <p>{{ image.username}} </p>
+      <p style="font-family: 'Marck Script', cursive;font-size: 30px;">{{ image.username}} </p>
 
     </div>
-
-
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <img src="{{image.image.url}}" class="img-responsive" alt="Image" height="300px" width="400px">
-      
+  
     
   {% empty %}
   <div class="row">
     <h2 class="text-center">There No News Items</h2>
   </div>
   {% endfor %}
-
+</div>
 </div>
 {% endblock %}

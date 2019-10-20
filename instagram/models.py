@@ -13,7 +13,7 @@ class Profile(models.Model):
     biography = models.CharField(max_length =30)
     username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     def __str__(self):
-        return self.username
+        return self.biography
     def save_profile(self):
         self.save()
 
@@ -45,8 +45,8 @@ class Image(models.Model):
     def update_image(self):
         self.update()
 
-    def delete(self):
-        self.delete()
+    # def delete(self):
+    #     self.delete()
 
 
 class Comment(models.Model):
