@@ -5,14 +5,44 @@ from django.test import TestCase
 from .models import Image,Profile
 
 # Create your tests here.
+
+class ProfileTestClass(TestCase):
+     # Set up method
+    def setUp(self):
+        self.anne= Profile(profile_photo = 'passion.jpeg', biography ='Passion')
+        
+        # Testing  instance
+    def test_instance(self):
+        self.assertTrue(isinstance(self.anne,Profile))
+
+    def test_save_profile(self):
+        self.james = Profile(profile_photo='travel.jpeg',biography='Travel')
+        self.james.save_profile()
+        profiles = Profile.objects.all()
+        self.assertTrue(len(profiles)>0)
+    
+    def test_update_profile(self):
+        self.ange = Profile(profile_photo='travel.jepg',biography='Awesome')
+        self.ange.save_profile()
+        cars =Profile.objects.filter(biography='Awesome').first()
+        update= Profile.objects.filter(id=cars.id).update(biography='Journalist')
+        updated = Profile.objects.filter(biography = 'Journalist').first()
+        self.assertNotEqual(cars.biography , updated.biography)
+
+    def test_delete_profile(self):
+        self.fina = Profile(profile_photo='travel.jepg',biography='Awesome')
+        self.fina.save_profile()
+        nature = Profile.objects.filter(biography='Awesome').first()
+        tree = Profile.objects.filter(id =nature.id).delete()
+        trees =Profile.objects.all()
+        
+
+
 class ImageTestClass(TestCase):
 
     # Set up method
     def setUp(self):
         self.passion= Image(image = 'passion.jpeg', name ='Passion', caption='Motivational')
-       
-        
-
         # Testing  instance
     def test_instance(self):
         self.assertTrue(isinstance(self.passion,Image))
@@ -37,6 +67,4 @@ class ImageTestClass(TestCase):
         nature = Image.objects.filter(name='Virunga').first()
         tree = Image.objects.filter(id =nature.id).delete()
         trees =Image.objects.all()
-        # self.assertTrue(len(cats) == 0)
-
-    
+        

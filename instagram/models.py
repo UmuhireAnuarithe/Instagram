@@ -12,7 +12,16 @@ class Profile(models.Model):
     profile_photo = models.ImageField(upload_to = 'photos/',null=True)
     biography = models.CharField(max_length =30)
     username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-   
+    def __str__(self):
+        return self.username
+    def save_profile(self):
+        self.save()
+
+    def update_profile(self):
+        self.update()
+
+    def delete(self):
+        self.delete()
     
     @classmethod
     def search_user(cls,search_term):
