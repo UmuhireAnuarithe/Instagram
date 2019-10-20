@@ -5,11 +5,11 @@
 <head>
   <meta charset="utf-8">
 
-  <!-- {% if title %}
+  {% if title %}
   <title>Welcome - {{title}}</title>
   {% else %}
     <title> Moringa Intagram </title>
-  {% endif %} -->
+  {% endif %}
 
   {% block styles %}
     {% bootstrap_css %}
@@ -20,7 +20,7 @@
 
     {% include "navbar.html" %}
     {% block content %} 
-    <h1 class='text-center'>Welcome to instagram</h1> 
+   
     {%endblock%}
 
     {% block scripts %}
