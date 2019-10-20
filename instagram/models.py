@@ -28,4 +28,22 @@ class Image(models.Model):
     username = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     
     def __str__(self):
-        return self.title
+        return self.name
+    
+    def save_image(self):
+        self.save()
+
+    def update_image(self):
+        self.update()
+
+    def delete(self):
+        self.delete()
+
+
+class Comment(models.Model):
+    image = models.ForeignKey(Image,blank=True, on_delete=models.CASCADE,related_name='comment')
+    commenter = models.ForeignKey(User, blank=True)
+    comment= models.TextField()
+
+
+

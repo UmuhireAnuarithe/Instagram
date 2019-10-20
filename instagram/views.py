@@ -41,20 +41,26 @@ def new_post(request):
         form = NewImageForm()
     return render(request, 'new.html', {"form": form})  
 
-
-
-@login_required(login_url='/accounts/login/')
-def edit_profile(request):
+def comment(request,image_id):
     current_user=request.user
-    user_edit = Profile.objects.get(username__id=current_user.id)
-    if request.method =='POST':
-        form=ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+    image = Image.objects.get(id=image_id)
+    user = User.objects.get(username=current_user)
+    comments = Comment.objects.all()
+    print(comments)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
         if form.is_valid():
-            form.save()
-            print('success')
-          
-        form=ProfileForm(instance=request.user.profile)
-        print('error')
+            comment = form.save(commit=False)
+            comment.image = image
+            comment.commenter = current_user
+            comment.save()
+
+            print(comments)
 
 
-    return render(request,'edit_profile.html',locals())  
+        return redirect(home)
+
+    else:
+        form = CommentForm()
+
+    return render(request, 'comment.html', locals())
