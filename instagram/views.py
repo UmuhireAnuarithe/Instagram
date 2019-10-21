@@ -14,7 +14,6 @@ def welcome(request):
 
 
 def search_user(request):
-
     if 'profile' in request.GET and request.GET["profile"]:
         search_term = request.GET.get("profile")
         searched_profile = Profile.search_user(search_term)
@@ -49,7 +48,7 @@ def new_profile(request):
       form = NewProfileForm(request.POST, request.FILES)
       if form.is_valid():
           picture = form.save(commit=False)
-          picture.user = current_user
+          picture.username = current_user
           picture.save()
       return redirect('profile')
   else:
@@ -57,12 +56,8 @@ def new_profile(request):
   return render(request, 'new-profile.html',{"form":form})
 
 
-
-
-
 @login_required(login_url='/accounts/login/')
 def profile(request):
  current_user = request.user
-
  mypicture = Profile.objects.filter(username = current_user).first()
  return render(request, 'profile.html', { "mypicture":mypicture})
