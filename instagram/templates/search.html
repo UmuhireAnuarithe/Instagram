@@ -1,29 +1,28 @@
-{%extends 'base.html'%} 
+{%extends 'base.html'%}
 {% block content %}
 <div class="container">
 
   <div class="row">
     {% if profiles %}
-      <h2>Found profiles {{profiles |length }} of searched term {{message}}</h2>
+    <h2>Found profiles {{profiles |length }} of searched term {{message}}</h2>
     {% else %}
-      <h2> Found 0 profiles for the search term {{message}}</h2>
+    <h2> Found 0 profiles for the search term {{message}}</h2>
     {% endif %}
 
   </div>
 
   <div class="row">
 
-  {% if profiles %}
-    {% for profile in profiles  %}
-      <div class="col-sm-6 col-md-3">
-          <h1>{{profile.biography}}</h1>
-      </div>
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <img src="{{profile.profile_photo.url}}" class="img-responsive" alt="Image">
-          </div>
-      
+    {% if profiles %}
+    {% for profile in profiles %}
+    <div class="col-sm-6 col-md-3"></div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <h1>{{profile.biography}}</h1>
+      <img src="{{profile.profile_photo.url}}" class="img-responsive" alt="Image" height="200" width="300">
+    </div>
+    <div class="col-sm-6 col-md-3"></div>
     {% endfor %}
-  {% endif %}
+    {% endif %}
   </div>
 </div>
 {% endblock %}
