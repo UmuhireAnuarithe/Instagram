@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 from .models import Profile,Image
 from django.contrib.auth.decorators import login_required
-from .forms import NewImageForm
+from .forms import NewImageForm,NewProfileForm
 
 @login_required(login_url='/accounts/login/')
 def welcome(request):
@@ -39,28 +39,30 @@ def new_post(request):
 
     else:
         form = NewImageForm()
-    return render(request, 'new.html', {"form": form})  
+    return render(request, 'new.html', {"form": form})
 
-def comment(request,image_id):
-    current_user=request.user
-    image = Image.objects.get(id=image_id)
-    user = User.objects.get(username=current_user)
-    comments = Comment.objects.all()
-    print(comments)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.image = image
-            comment.commenter = current_user
-            comment.save()
+@login_required(login_url='/accounts/login/')
+def new_profile(request):
+  current_user = request.user
+  new_profile = Profile.objects.filter(id=current_user.id)
+  if request.method == 'POST':
+      form = NewProfileForm(request.POST, request.FILES)
+      if form.is_valid():
+          picture = form.save(commit=False)
+          picture.user = current_user
+          picture.save()
+      return redirect('profile')
+  else:
+      form = NewProfileForm()
+  return render(request, 'new-profile.html',{"form":form})
 
-            print(comments)
 
 
-        return redirect(home)
 
-    else:
-        form = CommentForm()
 
-    return render(request, 'comment.html', locals())
+@login_required(login_url='/accounts/login/')
+def profile(request):
+ current_user = request.user
+
+ mypicture = Profile.objects.filter(username = current_user).first()
+ return render(request, 'profile.html', { "mypicture":mypicture})
