@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
-from .models import Profile,Image
+from .models import Profile,Image ,Comment
 from django.contrib.auth.decorators import login_required
-from .forms import NewImageForm,NewProfileForm
+from .forms import NewImageForm,NewProfileForm ,CommentForm
 
 @login_required(login_url='/accounts/login/')
 def welcome(request):
@@ -61,3 +61,22 @@ def profile(request):
  current_user = request.user
  mypicture = Profile.objects.filter(username = current_user).first()
  return render(request, 'profile.html', { "mypicture":mypicture})
+
+
+@login_required(login_url='/accounts/login/')
+def comment(request):
+    current_user = request.user
+    comments = Comment.objects.all()
+    if request.method == 'POST':
+       form = CommentForm(request.POST)
+       if form.is_valid():
+           post_id = int(request.POST.get("idpost"))
+           post = Post.objects.get(id = post_id)
+           comment = form.save(commit=False)
+           comment.username = request.user
+           comment.post = post
+           comment.save()
+       return redirect('welcome')
+    else:
+            form = CommentForm()
+    return render(request, 'comment.html', {"form": form ,'comments':comments})
