@@ -45,14 +45,24 @@ class Image(models.Model):
     def update_image(self):
         self.update()
 
-    # def delete(self):
-    #     self.delete()
+    def delete(self):
+        self.delete()
 
 
 class Comment(models.Model):
     image = models.ForeignKey(Image,blank=True, on_delete=models.CASCADE,related_name='comment')
     commenter = models.ForeignKey(User, blank=True)
-    comment= models.TextField()
+    comment = models.TextField()
 
+
+    def __str__(self):
+        return self.comment
+    
+    def save_comment(self):
+        self.save()
+
+
+    def delete(self):
+        self.delete()
 
 

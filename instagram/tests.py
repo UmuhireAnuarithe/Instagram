@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from .models import Image,Profile
+from .models import Image,Profile ,Comment
 
 # Create your tests here.
 
@@ -68,3 +68,13 @@ class ImageTestClass(TestCase):
         tree = Image.objects.filter(id =nature.id).delete()
         trees =Image.objects.all()
         
+class CommentTestClass(TestCase):
+     # Set up method
+    def setUp(self):
+        self.anne= Comment(  comment ='test')
+        
+        # Testing  instance
+    def test_instance(self):
+        self.assertTrue(isinstance(self.anne,Comment))
+
+   
