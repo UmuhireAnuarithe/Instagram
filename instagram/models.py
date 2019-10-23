@@ -64,5 +64,3 @@ class Comment(models.Model):
 
     def delete(self):
         self.delete()
-
-

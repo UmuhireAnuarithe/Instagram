@@ -68,13 +68,3 @@ class ImageTestClass(TestCase):
         tree = Image.objects.filter(id =nature.id).delete()
         trees =Image.objects.all()
         
-class CommentTestClass(TestCase):
-     # Set up method
-    def setUp(self):
-        self.anne= Comment(  comment ='test')
-        
-        # Testing  instance
-    def test_instance(self):
-        self.assertTrue(isinstance(self.anne,Comment))
-
-   
